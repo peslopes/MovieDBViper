@@ -15,25 +15,28 @@ class MovieMainPresenter {
     private var interactor: MovieMainInteractorProtocol
     private var wireframe: MovieMainRouterProtocol
     
+    
     init(view: MovieMainViewProtocol) {
         self._view = view
         self.interactor = MovieMainInteractor()
         self.wireframe = MovieMainRouter()
     }
+    
+    //func load
 }
 
 // MARK: - extending MovieMainPresenter to implement it's protocol
 extension MovieMainPresenter: MovieMainPresenterProtocol {
     func fetch(objectFor view: MovieMainViewProtocol) {
-        <#code#>
+        print("Todo")
     }
     
     func interactor(_ interactor: MovieMainInteractorProtocol, didFetch object: MovieMainEntity) {
-        <#code#>
+        print("Todo")
     }
     
     func interactor(_ interactor: MovieMainInteractorProtocol, didFailWith error: Error) {
-        <#code#>
+        print("Todo")
     }
     
     
