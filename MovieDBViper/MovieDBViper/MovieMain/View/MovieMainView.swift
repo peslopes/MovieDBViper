@@ -19,6 +19,8 @@ class MovieMainView: UIViewController {
     private var popularMovies: [Movie]?
     private var nowPlayingMovies: [Movie]?
     private var hideNowPlaying = true
+    private var hidePopular = false
+    private var alertHasBeenShowed = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -36,23 +38,45 @@ extension MovieMainView: MovieMainViewProtocol {
         self.hideNowPlaying = hideNowPlaying
     }
     
+    func set(hidePopular: Bool) {
+        self.hidePopular = hidePopular
+    }
+    
+    func totalRequestError() -> Bool {
+       return hidePopular && hideNowPlaying
+    }
+    
     func set(nowPlayingMovies: [Movie]) {
-        DispatchQueue.main.async {
-            self.tableView.isHidden = false
-            self.nowPlayingMovies = nowPlayingMovies
-            self.tableView.reloadData()
+        if totalRequestError() {
+            if !alertHasBeenShowed {
+                alertHasBeenShowed = true
+                print("Todo")
+            }
+        }
+        else {
+            DispatchQueue.main.async {
+                self.tableView.isHidden = false
+                self.nowPlayingMovies = nowPlayingMovies
+                self.tableView.reloadData()
+            }
         }
     }
     
     func set(popularMovies: [Movie]) {
-        DispatchQueue.main.async {
-            self.tableView.isHidden = false
-            self.popularMovies = popularMovies
-            self.tableView.reloadData()
+        if totalRequestError() {
+            if !alertHasBeenShowed {
+                alertHasBeenShowed = true
+                print("Todo")
+            }
+        }
+        else {
+            DispatchQueue.main.async {
+                self.tableView.isHidden = false
+                self.popularMovies = popularMovies
+                self.tableView.reloadData()
+            }
         }
     }
-    
-    
 }
 
 extension MovieMainView: UITableViewDataSource {

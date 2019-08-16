@@ -32,6 +32,12 @@ class MovieMainPresenter: MovieMainPresenterProtocol {
     }
     
     func popularMoviesDidFetch(popularMovies: [Movie]?, error: Error?) {
+        if error != nil || popularMovies?.isEmpty ?? true{
+            _view?.set(hidePopular: true)
+        }
+        else {
+            _view?.set(hidePopular: false)
+        }
         let movies = popularMovies!.sorted(by: {$0.ratings! > $1.ratings! })
         _view?.set(popularMovies: movies)
     }

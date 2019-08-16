@@ -10,5 +10,5 @@ import UIKit
 
 /// MovieMain Module Router (aka: Wireframe)
 class MovieMainRouter: MovieMainRouterProtocol {
-        
+    
 }
