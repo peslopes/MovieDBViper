@@ -31,7 +31,7 @@ extension MovieMainPresenter: MovieMainPresenterProtocol {
         print("Todo")
     }
     
-    func interactor(_ interactor: MovieMainInteractorProtocol, didFetch object: MovieMainEntity) {
+    func interactor(_ interactor: MovieMainInteractorProtocol, didFetch object: Movie) {
         print("Todo")
     }
     
