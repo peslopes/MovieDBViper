@@ -11,7 +11,7 @@ import UIKit
 /// MovieMain Module Interactor
 class MovieMainInteractor: MovieMainInteractorProtocol {
     func fetch(objectFor presenter: MovieMainPresenterProtocol) {
-        <#code#>
+        print("Todo")
     }
     
 
