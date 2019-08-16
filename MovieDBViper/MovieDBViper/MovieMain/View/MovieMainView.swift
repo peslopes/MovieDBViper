@@ -18,6 +18,7 @@ class MovieMainView: UIViewController {
     private var presenter: MovieMainPresenterProtocol!
     private var popularMovies: [Movie]?
     private var nowPlayingMovies: [Movie]?
+    private var hideNowPlaying = true
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -31,6 +32,10 @@ class MovieMainView: UIViewController {
 
 // MARK: - extending MovieMainView to implement it's protocol
 extension MovieMainView: MovieMainViewProtocol {
+    func set(hideNowPlaying: Bool) {
+        self.hideNowPlaying = hideNowPlaying
+    }
+    
     func set(nowPlayingMovies: [Movie]) {
         DispatchQueue.main.async {
             self.tableView.isHidden = false
@@ -52,11 +57,20 @@ extension MovieMainView: MovieMainViewProtocol {
 
 extension MovieMainView: UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 3
+        if hideNowPlaying {
+            return 2
+        }
+        else {
+            return 3
+        }
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if section == 2 {
+        var popularMoviesSection = 2
+        if hideNowPlaying {
+            popularMoviesSection = 1
+        }
+        if section == popularMoviesSection {
             return popularMovies?.count ?? 0
         }
         else {
@@ -65,18 +79,27 @@ extension MovieMainView: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        if indexPath.section == 0 {
+        var popularMoviesSection = 2
+        var popularMoviesLabelSection = 1
+        var nowPlayingSection = 0
+        if hideNowPlaying {
+            popularMoviesSection = 1
+            popularMoviesLabelSection = 0
+            nowPlayingSection = -1
+        }
+        
+        if indexPath.section == nowPlayingSection {
             if let cell = tableView.dequeueReusableCell(withIdentifier: "nowPlayingTableViewCell", for: indexPath) as? NowPlayingTableViewCell{
                 cell.nowPlayingCollectionView.dataSource = self
                 cell.nowPlayingCollectionView.reloadData()
                 return cell
             }
         }
-        else if indexPath.section == 1 {
+        else if indexPath.section == popularMoviesLabelSection {
             return tableView.dequeueReusableCell(withIdentifier: "PopularMovieLabelCell", for: indexPath)
         }
         
-        else if indexPath.section == 2 {
+        else if indexPath.section == popularMoviesSection {
             if let cell = tableView.dequeueReusableCell(withIdentifier: "popularMoviesTableViewCell", for: indexPath) as? PopularMoviesTableViewCell {
                 cell.movieRating.text = popularMovies![indexPath.row].ratings?.description
                 cell.movieDescription.text = popularMovies![indexPath.row].overview

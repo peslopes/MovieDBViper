@@ -27,8 +27,8 @@ class MovieMainPresenter: MovieMainPresenterProtocol {
     }
     
     func loadMovieLists() {
-        interactor.getPopularMovies(presenter: self)
         interactor.getNowPlayingMovies(presenter: self)
+        interactor.getPopularMovies(presenter: self)
     }
     
     func popularMoviesDidFetch(popularMovies: [Movie]?, error: Error?) {
@@ -37,6 +37,12 @@ class MovieMainPresenter: MovieMainPresenterProtocol {
     }
     
     func nowPlayingMoviesDidFetch(nowPlayingMovies: [Movie]?, error: Error?) {
+        if error != nil || nowPlayingMovies?.isEmpty ?? true{
+            _view?.set(hideNowPlaying: true)
+        }
+        else {
+            _view?.set(hideNowPlaying: false)
+        }
         _view?.set(nowPlayingMovies: nowPlayingMovies!)
     }
     

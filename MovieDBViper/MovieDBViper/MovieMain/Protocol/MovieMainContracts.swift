@@ -21,6 +21,8 @@ protocol MovieMainViewProtocol: BaseViewProtocol {
     func set(popularMovies: [Movie])
     
     func set(nowPlayingMovies: [Movie])
+    
+    func set(hideNowPlaying: Bool)
 }
 
 //MARK: Interactor -
