@@ -17,8 +17,10 @@ import UIKit
 /// MovieMain Module View Protocol
 protocol MovieMainViewProtocol: BaseViewProtocol {
     // Update UI with value returned.
-    /// Set the view Object of Type MovieMainEntity
-    func set(object: MovieMainEntity)
+    /// Set the view Object of Type Movie
+    func set(popularMovies: [Movie])
+    
+    func set(nowPlayingMovies: [Movie])
 }
 
 //MARK: Interactor -
@@ -34,7 +36,7 @@ protocol MovieMainPresenterProtocol {
     /// The presenter will fetch data from the Interactor thru implementing the Interactor fetch function.
     func fetch(objectFor view: MovieMainViewProtocol)
     /// The Interactor will inform the Presenter a successful fetch.
-    func interactor(_ interactor: MovieMainInteractorProtocol, didFetch object: MovieMainEntity)
+    func interactor(_ interactor: MovieMainInteractorProtocol, didFetch object: Movie)
     /// The Interactor will inform the Presenter a failed fetch.
     func interactor(_ interactor: MovieMainInteractorProtocol, didFailWith error: Error)
 }
@@ -43,5 +45,5 @@ protocol MovieMainPresenterProtocol {
 /// MovieMain Module Router Protocol
 protocol MovieMainRouterProtocol {
     // Show Details of Entity Object coming from ParentView Controller.
-    // func showDetailsFor(object: MovieMainEntity, parentViewController viewController: UIViewController)
+    // func showDetailsFor(object: Movie, parentViewController viewController: UIViewController)
 }

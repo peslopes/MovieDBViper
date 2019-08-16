@@ -1,5 +1,5 @@
 //
-//  MovieMainEntity.swift
+//  Movie.swift
 //  MovieDBViper
 //
 //  Created Pedro Enrique Sobrosa Lopes on 14/08/19.
@@ -9,6 +9,6 @@
 import UIKit
 
 /// MovieMain Module Entity
-struct MovieMainEntity {
+struct Movie {
 
 }

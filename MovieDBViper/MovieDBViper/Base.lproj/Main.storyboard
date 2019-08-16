@@ -60,7 +60,7 @@
                                         <rect key="frame" x="0.0" y="0.0" width="414" height="670"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <prototypes>
-                                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" rowHeight="346" id="A8E-8I-W1W" customClass="NowPlayingTableViewCell" customModule="MovieDBViper" customModuleProvider="target">
+                                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="nowPlayingTableViewCell" rowHeight="346" id="A8E-8I-W1W" customClass="NowPlayingTableViewCell" customModule="MovieDBViper" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="28" width="414" height="346"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" ambiguous="YES" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="A8E-8I-W1W" id="Ago-ti-cHO">
@@ -86,7 +86,7 @@
                                                                         <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                                                     </collectionViewFlowLayout>
                                                                     <cells>
-                                                                        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="tlJ-0q-BpG">
+                                                                        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="nowPlayingCollectionViewCell" id="tlJ-0q-BpG" customClass="NowPlayingCollectionViewCell" customModule="MovieDBViper" customModuleProvider="target">
                                                                             <rect key="frame" x="0.0" y="0.0" width="162" height="285"/>
                                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                                             <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
@@ -150,6 +150,11 @@
                                                                                 <constraint firstItem="YtK-4X-juj" firstAttribute="top" secondItem="tlJ-0q-BpG" secondAttribute="top" id="fLI-ld-reL"/>
                                                                                 <constraint firstItem="YtK-4X-juj" firstAttribute="leading" secondItem="tlJ-0q-BpG" secondAttribute="leading" id="ta4-o3-9Ol"/>
                                                                             </constraints>
+                                                                            <connections>
+                                                                                <outlet property="movieCover" destination="kUH-qG-Kpt" id="2GI-7B-pD8"/>
+                                                                                <outlet property="movieRating" destination="8Ve-SW-lwA" id="tM5-JD-InT"/>
+                                                                                <outlet property="movieTitle" destination="rlX-rp-rSA" id="HEC-jq-R3s"/>
+                                                                            </connections>
                                                                         </collectionViewCell>
                                                                     </cells>
                                                                 </collectionView>
@@ -186,7 +191,7 @@
                                                     <outlet property="nowPlayingCollectionView" destination="Dfr-ny-upo" id="7TC-QG-4Bh"/>
                                                 </connections>
                                             </tableViewCell>
-                                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" rowHeight="68" id="BnC-nk-PxX">
+                                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="PopularMovieLabelCell" rowHeight="68" id="BnC-nk-PxX">
                                                 <rect key="frame" x="0.0" y="374" width="414" height="68"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" ambiguous="YES" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="BnC-nk-PxX" id="2r0-WL-x46">
@@ -219,7 +224,7 @@
                                                     </constraints>
                                                 </tableViewCellContentView>
                                             </tableViewCell>
-                                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" rowHeight="165" id="CgS-ru-Pxl">
+                                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="popularMoviesTableViewCell" rowHeight="165" id="CgS-ru-Pxl" customClass="PopularMoviesTableViewCell" customModule="MovieDBViper" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="442" width="414" height="165"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" ambiguous="YES" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="CgS-ru-Pxl" id="jsq-ga-JGc">
@@ -287,6 +292,11 @@
                                                         <constraint firstItem="A4d-7C-qlg" firstAttribute="leading" secondItem="jsq-ga-JGc" secondAttribute="leadingMargin" id="a8q-H5-X4d"/>
                                                     </constraints>
                                                 </tableViewCellContentView>
+                                                <connections>
+                                                    <outlet property="movieCover" destination="n4G-MR-42z" id="QQT-cX-4hj"/>
+                                                    <outlet property="movieDescription" destination="euK-dJ-WF6" id="9IT-t5-e9y"/>
+                                                    <outlet property="movieRating" destination="3hN-Gb-2qb" id="qFX-wV-8V3"/>
+                                                </connections>
                                             </tableViewCell>
                                         </prototypes>
                                     </tableView>
@@ -444,6 +454,6 @@
     <resources>
         <image name="FastFurious" width="250" height="375"/>
         <image name="nil" width="16" height="16"/>
-        <image name="star" width="24" height="24"/>
+        <image name="star" width="12" height="12"/>
     </resources>
 </document>
