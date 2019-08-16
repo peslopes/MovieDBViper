@@ -9,7 +9,7 @@
 import UIKit
 
 /// MovieMain Module Presenter
-class MovieMainPresenter {
+class MovieMainPresenter: MovieMainPresenterProtocol {
     
     weak private var _view: MovieMainViewProtocol?
     private var interactor: MovieMainInteractorProtocol
@@ -21,23 +21,35 @@ class MovieMainPresenter {
         self.interactor = MovieMainInteractor()
         self.wireframe = MovieMainRouter()
     }
-    
-    //func load
-}
 
-// MARK: - extending MovieMainPresenter to implement it's protocol
-extension MovieMainPresenter: MovieMainPresenterProtocol {
-    func fetch(objectFor view: MovieMainViewProtocol) {
-        print("Todo")
+    func viewDidLoad() {
+        self.loadMovieLists()
     }
     
-    func interactor(_ interactor: MovieMainInteractorProtocol, didFetch object: Movie) {
-        print("Todo")
+    func loadMovieLists() {
+        interactor.getNowPlayingMovies(presenter: self)
+        interactor.getPopularMovies(presenter: self)
     }
     
-    func interactor(_ interactor: MovieMainInteractorProtocol, didFailWith error: Error) {
-        print("Todo")
+    func popularMoviesDidFetch(popularMovies: [Movie]?, error: Error?) {
+        if error != nil || popularMovies?.isEmpty ?? true{
+            _view?.set(hidePopular: true)
+        }
+        else {
+            _view?.set(hidePopular: false)
+        }
+        let movies = popularMovies!.sorted(by: {$0.ratings! > $1.ratings! })
+        _view?.set(popularMovies: movies)
     }
     
+    func nowPlayingMoviesDidFetch(nowPlayingMovies: [Movie]?, error: Error?) {
+        if error != nil || nowPlayingMovies?.isEmpty ?? true{
+            _view?.set(hideNowPlaying: true)
+        }
+        else {
+            _view?.set(hideNowPlaying: false)
+        }
+        _view?.set(nowPlayingMovies: nowPlayingMovies!)
+    }
     
 }

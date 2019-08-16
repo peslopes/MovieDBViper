@@ -79,7 +79,7 @@
                                                                 <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="Dfr-ny-upo">
                                                                     <rect key="frame" x="15" y="53.5" width="399" height="293"/>
                                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                                    <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="KD1-jt-t33">
+                                                                    <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="10" id="KD1-jt-t33">
                                                                         <size key="itemSize" width="162" height="285"/>
                                                                         <size key="headerReferenceSize" width="0.0" height="0.0"/>
                                                                         <size key="footerReferenceSize" width="0.0" height="0.0"/>
@@ -87,7 +87,7 @@
                                                                     </collectionViewFlowLayout>
                                                                     <cells>
                                                                         <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="nowPlayingCollectionViewCell" id="tlJ-0q-BpG" customClass="NowPlayingCollectionViewCell" customModule="MovieDBViper" customModuleProvider="target">
-                                                                            <rect key="frame" x="0.0" y="0.0" width="162" height="285"/>
+                                                                            <rect key="frame" x="0.0" y="4" width="162" height="285"/>
                                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                                             <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
                                                                                 <rect key="frame" x="0.0" y="0.0" width="162" height="285"/>
@@ -96,7 +96,7 @@
                                                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YtK-4X-juj">
                                                                                         <rect key="frame" x="0.0" y="0.0" width="162" height="285"/>
                                                                                         <subviews>
-                                                                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="FastFurious" translatesAutoresizingMaskIntoConstraints="NO" id="kUH-qG-Kpt">
+                                                                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="kUH-qG-Kpt">
                                                                                                 <rect key="frame" x="0.0" y="0.0" width="152" height="229"/>
                                                                                                 <constraints>
                                                                                                     <constraint firstAttribute="width" constant="152" id="IvA-Gm-vMN"/>
@@ -234,7 +234,7 @@
                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="A4d-7C-qlg">
                                                             <rect key="frame" x="20" y="11" width="374" height="138"/>
                                                             <subviews>
-                                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="FastFurious" translatesAutoresizingMaskIntoConstraints="NO" id="n4G-MR-42z">
+                                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="n4G-MR-42z">
                                                                     <rect key="frame" x="0.0" y="14" width="79" height="118"/>
                                                                     <constraints>
                                                                         <constraint firstAttribute="width" constant="79" id="LC1-Ud-Bxn"/>
@@ -296,6 +296,7 @@
                                                     <outlet property="movieCover" destination="n4G-MR-42z" id="QQT-cX-4hj"/>
                                                     <outlet property="movieDescription" destination="euK-dJ-WF6" id="9IT-t5-e9y"/>
                                                     <outlet property="movieRating" destination="3hN-Gb-2qb" id="qFX-wV-8V3"/>
+                                                    <outlet property="movieTitle" destination="i6i-Zu-zQY" id="Ru6-MY-062"/>
                                                 </connections>
                                             </tableViewCell>
                                         </prototypes>
@@ -346,7 +347,7 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="iKJ-SJ-WpA">
                                 <rect key="frame" x="0.0" y="88" width="414" height="774"/>
                                 <subviews>
-                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="FastFurious" translatesAutoresizingMaskIntoConstraints="NO" id="RRq-AO-ev3">
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="RRq-AO-ev3">
                                         <rect key="frame" x="21" y="18" width="128" height="194"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="194" id="ATz-4w-tQS"/>
@@ -452,7 +453,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="FastFurious" width="250" height="375"/>
         <image name="nil" width="16" height="16"/>
         <image name="star" width="12" height="12"/>
     </resources>

@@ -29,60 +29,76 @@ class WebService {
     typealias PopularMoviesCompletionBlock = (_ popularMovies: PopularMovies?, _ error: Error?) -> Void
     typealias MoviesDetailsCompletionBlock = (_ moviesDetails: MovieDetails?, _ error: Error?) -> Void
     
-    func getCoverFrom(posterPath: String, completion: @escaping WebServiceCompletionBlock) {
-        getDataFromURL(urlString: "https://image.tmdb.org/t/p/w500\(posterPath)") { data, error in
-            guard let data = data, error == nil else {
-                print(error!)
-                return
+    func getCoverFrom(posterPath: String?) -> Data? {
+        if posterPath == nil {
+            return nil
+        }
+        else {
+            if let url = URL(string: "https://image.tmdb.org/t/p/w500\(posterPath!)") {
+                do {
+                    let data = try Data(contentsOf: url)
+                    return data
+                }
+                catch {
+                    return nil
+                }
             }
-            completion(data, nil)
+            else {
+                return nil
+            }
         }
     }
     
     func getNowPlayingMovies(completion: @escaping NowPlayingMoviesCompletionBlock) {
         getDataFromURL(urlString: "https://api.themoviedb.org/3/movie/now_playing?api_key=\(apiKey)&language=en-US&page=1") { data, error in
-            guard let data = data, error == nil else {
-                print(error!)
-                return
-            }
-            do {
-                let nowPlayingMovies = try JSONDecoder().decode(NowPlayingMovies.self, from: data)
-                completion(nowPlayingMovies,nil)
-            }
-            catch {
-                print(error)
+            if let error = error {
+                completion(nil, error)
+            } else if let data = data {
+                do {
+                    let nowPlayingMovies = try JSONDecoder().decode(NowPlayingMovies.self, from: data)
+                    completion(nowPlayingMovies,nil)
+                }
+                catch {
+                    print(error)
+                }
+            } else {
+                completion(nil, nil)
             }
         }
     }
     
     func getPopularMovies(completion: @escaping PopularMoviesCompletionBlock) {
         getDataFromURL(urlString: "https://api.themoviedb.org/3/movie/popular?api_key=\(apiKey)&language=en-US&page=1") { data, error in
-            guard let data = data, error == nil else {
-                print(error!)
-                return
-            }
-            do {
-                let popularMovies = try JSONDecoder().decode(PopularMovies.self, from: data)
-                completion(popularMovies,nil)
-            }
-            catch {
-                print(error)
+            if let error = error {
+                completion(nil, error)
+            } else if let data = data {
+                do {
+                    let popularMovies = try JSONDecoder().decode(PopularMovies.self, from: data)
+                    completion(popularMovies,nil)
+                }
+                catch {
+                    print(error)
+                }
+            } else {
+                completion(nil, nil)
             }
         }
     }
     
     func getMovieDetails(movieId: Int, completion: @escaping MoviesDetailsCompletionBlock) {
         getDataFromURL(urlString: "https://api.themoviedb.org/3/movie/\(movieId)?api_key=\(apiKey)&language=en-US") { data, error in
-            guard let data = data, error == nil else {
-                print(error!)
-                return
-            }
-            do {
-                let moviesDetails = try JSONDecoder().decode(MovieDetails.self, from: data)
-                completion(moviesDetails,nil)
-            }
-            catch {
-                print(error)
+            if let error = error {
+                completion(nil, error)
+            } else if let data = data {
+                do {
+                    let moviesDetails = try JSONDecoder().decode(MovieDetails.self, from: data)
+                    completion(moviesDetails,nil)
+                }
+                catch {
+                    print(error)
+                }
+            } else {
+                completion(nil, nil)
             }
         }
     }
@@ -96,11 +112,13 @@ class WebService {
         let request = URLRequest(url: url)
         
         let task = URLSession.shared.dataTask(with: request) { data, response, error in
-            guard let data = data, error == nil else {
-                print(error!)
-                return
+            if let error = error {
+                completion(nil, error)
+            } else if let data = data {
+                completion(data, nil)
+            } else {
+                completion(nil, nil)
             }
-            completion(data, nil)
         }
         task.resume()
         

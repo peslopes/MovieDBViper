@@ -13,6 +13,7 @@ class PopularMoviesTableViewCell: UITableViewCell {
     @IBOutlet weak var movieDescription: UILabel!
     @IBOutlet weak var movieCover: UIImageView!
     @IBOutlet weak var movieRating: UILabel!
+    @IBOutlet weak var movieTitle: UILabel!
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
