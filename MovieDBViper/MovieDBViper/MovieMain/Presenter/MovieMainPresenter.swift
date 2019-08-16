@@ -9,7 +9,7 @@
 import UIKit
 
 /// MovieMain Module Presenter
-class MovieMainPresenter {
+class MovieMainPresenter: MovieMainPresenterProtocol {
     
     weak private var _view: MovieMainViewProtocol?
     private var interactor: MovieMainInteractorProtocol
@@ -21,23 +21,23 @@ class MovieMainPresenter {
         self.interactor = MovieMainInteractor()
         self.wireframe = MovieMainRouter()
     }
-    
-    //func load
-}
 
-// MARK: - extending MovieMainPresenter to implement it's protocol
-extension MovieMainPresenter: MovieMainPresenterProtocol {
-    func fetch(objectFor view: MovieMainViewProtocol) {
-        print("Todo")
+    func viewDidLoad() {
+        self.loadMovieLists()
     }
     
-    func interactor(_ interactor: MovieMainInteractorProtocol, didFetch object: Movie) {
-        print("Todo")
+    func loadMovieLists() {
+        interactor.getPopularMovies(presenter: self)
+        interactor.getNowPlayingMovies(presenter: self)
     }
     
-    func interactor(_ interactor: MovieMainInteractorProtocol, didFailWith error: Error) {
-        print("Todo")
+    func popularMoviesDidFetch(popularMovies: [Movie]?, error: Error?) {
+        let movies = popularMovies!.sorted(by: {$0.ratings! > $1.ratings! })
+        _view?.set(popularMovies: movies)
     }
     
+    func nowPlayingMoviesDidFetch(nowPlayingMovies: [Movie]?, error: Error?) {
+        _view?.set(nowPlayingMovies: nowPlayingMovies!)
+    }
     
 }

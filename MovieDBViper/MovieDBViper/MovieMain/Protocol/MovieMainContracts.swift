@@ -27,18 +27,21 @@ protocol MovieMainViewProtocol: BaseViewProtocol {
 /// MovieMain Module Interactor Protocol
 protocol MovieMainInteractorProtocol {
     // Fetch Object from Data Layer
-    func fetch(objectFor presenter: MovieMainPresenterProtocol)
+    func getPopularMovies(presenter: MovieMainPresenterProtocol)
+    
+    func getNowPlayingMovies(presenter: MovieMainPresenterProtocol)
 }
 
 //MARK: Presenter -
 /// MovieMain Module Presenter Protocol
 protocol MovieMainPresenterProtocol {
-    /// The presenter will fetch data from the Interactor thru implementing the Interactor fetch function.
-    func fetch(objectFor view: MovieMainViewProtocol)
-    /// The Interactor will inform the Presenter a successful fetch.
-    func interactor(_ interactor: MovieMainInteractorProtocol, didFetch object: Movie)
-    /// The Interactor will inform the Presenter a failed fetch.
-    func interactor(_ interactor: MovieMainInteractorProtocol, didFailWith error: Error)
+    func viewDidLoad()
+    
+    func loadMovieLists()
+
+    func popularMoviesDidFetch(popularMovies: [Movie]?, error: Error?)
+    
+    func nowPlayingMoviesDidFetch(nowPlayingMovies: [Movie]?, error: Error?)
 }
 
 //MARK: Router (aka: Wireframe) -

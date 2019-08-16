@@ -10,5 +10,9 @@ import UIKit
 
 /// MovieMain Module Entity
 struct Movie {
-
+    var id: Int?
+    var coverData: Data?
+    var title: String?
+    var ratings: Double?
+    var overview: String?
 }
