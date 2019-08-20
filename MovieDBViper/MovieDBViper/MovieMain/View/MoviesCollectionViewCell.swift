@@ -1,5 +1,5 @@
 //
-//  NowPlayingCollectionViewCell.swift
+//  MoviesCollectionViewCell.swift
 //  MovieDBViper
 //
 //  Created by Pedro Enrique Sobrosa Lopes on 15/08/19.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class NowPlayingCollectionViewCell: UICollectionViewCell {
+class MoviesCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var movieCover: UIImageView!
     @IBOutlet weak var movieTitle: UILabel!
     @IBOutlet weak var movieRating: UILabel!

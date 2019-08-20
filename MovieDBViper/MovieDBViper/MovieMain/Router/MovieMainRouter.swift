@@ -10,5 +10,15 @@ import UIKit
 
 /// MovieMain Module Router (aka: Wireframe)
 class MovieMainRouter: MovieMainRouterProtocol {
+    func pushToMovieDetails(with movie: Movie, from view: UIViewController) {
+        let movieDetailsViewController = view.storyboard?.instantiateViewController(withIdentifier: "MovieDatails") as! MovieDetailsView
+        MovieDetailsRouter.createMovieDetailsModule(with: movieDetailsViewController, and: movie)
+        view.navigationController?.pushViewController(movieDetailsViewController, animated: true)
+    }
     
+    func pushToAllNowPlayingMovies(with movies: [Movie], from view: UIViewController) {
+        let nowPlayingViewController = view.storyboard?.instantiateViewController(withIdentifier: "Now Playing") as! NowPlayingMoviesView
+        NowPlayingMoviesRouter.createNowPlayingMoviesModule(with: nowPlayingViewController, and: movies)
+        view.navigationController?.pushViewController(nowPlayingViewController, animated: true)
+    }
 }

@@ -22,11 +22,9 @@ protocol MovieMainViewProtocol: BaseViewProtocol {
     
     func set(nowPlayingMovies: [Movie])
     
-    func set(hideNowPlaying: Bool)
+    func set(numberOfSections: Int)
     
-    func set(hidePopular: Bool)
-    
-    func totalRequestError() -> Bool
+    func loadData()
 }
 
 //MARK: Interactor -
@@ -48,6 +46,10 @@ protocol MovieMainPresenterProtocol {
     func popularMoviesDidFetch(popularMovies: [Movie]?, error: Error?)
     
     func nowPlayingMoviesDidFetch(nowPlayingMovies: [Movie]?, error: Error?)
+    
+    func showMovieDetails(with movie: Movie, from view: UIViewController)
+    
+    func showAll(nowPlayingMovies: [Movie], from view: UIViewController)
 }
 
 //MARK: Router (aka: Wireframe) -
@@ -55,4 +57,7 @@ protocol MovieMainPresenterProtocol {
 protocol MovieMainRouterProtocol {
     // Show Details of Entity Object coming from ParentView Controller.
     // func showDetailsFor(object: Movie, parentViewController viewController: UIViewController)
+    func pushToMovieDetails(with movie: Movie, from view: UIViewController)
+    
+    func pushToAllNowPlayingMovies(with movies: [Movie], from view: UIViewController)
 }

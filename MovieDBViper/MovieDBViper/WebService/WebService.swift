@@ -59,7 +59,7 @@ class WebService {
                     completion(nowPlayingMovies,nil)
                 }
                 catch {
-                    print(error)
+                    completion(nil, error)
                 }
             } else {
                 completion(nil, nil)
@@ -77,7 +77,7 @@ class WebService {
                     completion(popularMovies,nil)
                 }
                 catch {
-                    print(error)
+                    completion(nil, error)
                 }
             } else {
                 completion(nil, nil)
@@ -95,7 +95,7 @@ class WebService {
                     completion(moviesDetails,nil)
                 }
                 catch {
-                    print(error)
+                    completion(nil, error)
                 }
             } else {
                 completion(nil, nil)

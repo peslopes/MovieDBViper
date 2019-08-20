@@ -14,12 +14,22 @@ class MovieMainPresenter: MovieMainPresenterProtocol {
     weak private var _view: MovieMainViewProtocol?
     private var interactor: MovieMainInteractorProtocol
     private var wireframe: MovieMainRouterProtocol
-    
+    private var nowPlayingRequestError = false
+    private var popularRequestError = false
+    private var nowPlayingRequestReady = false
     
     init(view: MovieMainViewProtocol) {
         self._view = view
         self.interactor = MovieMainInteractor()
         self.wireframe = MovieMainRouter()
+    }
+    
+    func showMovieDetails(with movie: Movie, from view: UIViewController) {
+        wireframe.pushToMovieDetails(with: movie, from: view)
+    }
+    
+    func showAll(nowPlayingMovies: [Movie], from view: UIViewController) {
+        wireframe.pushToAllNowPlayingMovies(with: nowPlayingMovies, from: view)
     }
 
     func viewDidLoad() {
@@ -33,23 +43,33 @@ class MovieMainPresenter: MovieMainPresenterProtocol {
     
     func popularMoviesDidFetch(popularMovies: [Movie]?, error: Error?) {
         if error != nil || popularMovies?.isEmpty ?? true{
-            _view?.set(hidePopular: true)
+            popularRequestError = true
         }
         else {
-            _view?.set(hidePopular: false)
+            if !nowPlayingRequestReady {
+                _view?.set(numberOfSections: 2)
+            }
+            let movies = popularMovies!.sorted(by: {$0.ratings! > $1.ratings! })
+            _view?.set(popularMovies: movies)
+            _view?.loadData()
         }
-        let movies = popularMovies!.sorted(by: {$0.ratings! > $1.ratings! })
-        _view?.set(popularMovies: movies)
     }
     
     func nowPlayingMoviesDidFetch(nowPlayingMovies: [Movie]?, error: Error?) {
         if error != nil || nowPlayingMovies?.isEmpty ?? true{
-            _view?.set(hideNowPlaying: true)
+            nowPlayingRequestError = true
+            _view?.set(numberOfSections: 2)
         }
         else {
-            _view?.set(hideNowPlaying: false)
+            _view?.set(numberOfSections: 3)
+            _view?.set(nowPlayingMovies: nowPlayingMovies!)
+            _view?.loadData()
         }
-        _view?.set(nowPlayingMovies: nowPlayingMovies!)
+        nowPlayingRequestReady = true
+    }
+    
+    func totalError() -> Bool {
+        return popularRequestError && nowPlayingRequestError
     }
     
 }
