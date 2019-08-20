@@ -52,6 +52,14 @@ extension NowPlayingMoviesView: UICollectionViewDataSource {
         return UICollectionViewCell()
     }
     
+    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+        
+        if let sectionHeader = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "nowPlayingHeader", for: indexPath) as? NowPlayingCollectionReusableView{
+            sectionHeader.sectionHeaderLabel.text = "Showing \(movies?.count ?? 0) results"
+            return sectionHeader
+        }
+        return UICollectionReusableView()
+    }
     
 }
 
