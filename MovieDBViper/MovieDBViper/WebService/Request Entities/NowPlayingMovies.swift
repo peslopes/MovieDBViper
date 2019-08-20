@@ -15,13 +15,11 @@ import Foundation
 struct NowPlayingMovies: Codable {
     let results: [Result]?
     let page, totalResults: Int?
-    let dates: Dates?
     let totalPages: Int?
     
     enum CodingKeys: String, CodingKey {
         case results, page
         case totalResults = "total_results"
-        case dates
         case totalPages = "total_pages"
     }
 }

@@ -11,8 +11,8 @@ import UIKit
 /// MovieMain Module View
 class MovieMainView: UIViewController {
     
-    @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var moviesCollectionContainer: UIView!
     
     
     private var presenter: MovieMainPresenterProtocol!
@@ -28,8 +28,21 @@ class MovieMainView: UIViewController {
         tableView.isHidden = true
         self.tableView.dataSource = self
         self.tableView.delegate = self
+        setupNavBar()
         presenter = MovieMainPresenter(view: self)
         presenter.viewDidLoad()
+    }
+    
+    func setupNavBar() {
+        navigationController!.navigationBar.prefersLargeTitles = true
+        let searchController = UISearchController(searchResultsController: nil)
+        navigationItem.searchController = searchController
+        navigationItem.hidesSearchBarWhenScrolling = false
+        UIBarButtonItem.appearance(whenContainedInInstancesOf: [UISearchBar.self]).tintColor = .black
+        navigationItem.title = "MovieDB"
+        navigationItem.searchController?.searchBar.delegate = self
+        navigationItem.searchController?.searchResultsUpdater = self
+        moviesCollectionContainer.isHidden = true
     }
     
     @IBAction func seeAllTouched(_ sender: UIButton) {
@@ -155,5 +168,30 @@ extension MovieMainView: UICollectionViewDelegate, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         presenter?.showMovieDetails(with: popularMovies![indexPath.row], from: self)
+    }
+}
+
+extension MovieMainView: UISearchBarDelegate {
+    func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
+        tableView.isHidden = true
+    }
+    
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        if searchBar.text?.count ?? 0 >= 3 {
+            moviesCollectionContainer.isHidden = false
+            presenter.searchMovies(searchBar.text!, view: self)
+        }
+        else {
+            presenter.searchMovies("", view: self)
+        }
+    }
+}
+
+extension MovieMainView: UISearchResultsUpdating {
+    func updateSearchResults(for searchController: UISearchController) {
+        if !searchController.isActive {
+            tableView.isHidden = false
+            moviesCollectionContainer.isHidden = true
+        }
     }
 }

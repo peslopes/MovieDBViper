@@ -16,8 +16,7 @@ import UIKit
  */
 /// NowPlayingMovies Module View Protocol
 protocol NowPlayingMoviesViewProtocol: class {
-    // Update UI with value returned.
-    func set(movies: [Movie])
+
 }
 
 //MARK: Interactor -
@@ -28,13 +27,14 @@ protocol NowPlayingMoviesInteractorProtocol {
 //MARK: Presenter -
 /// NowPlayingMovies Module Presenter Protocol
 protocol NowPlayingMoviesPresenterProtocol {
-    func viewDidLoad()
+    func viewDidLoad(view: UIViewController)
 
 }
 
 //MARK: Router (aka: Wireframe) -
 /// NowPlayingMovies Module Router Protocol
 protocol NowPlayingMoviesRouterProtocol {
-    // Show Details of Entity Object coming from ParentView Controller.
-    // func showDetailsFor(object: NowPlayingMoviesEntity, parentViewController viewController: UIViewController)
+    func pushToMovieDetails(with movie: Movie, from view: UIViewController)
+    
+    func showContainer(with movies: [Movie], from view: UIViewController)
 }

@@ -12,55 +12,20 @@ import UIKit
 class NowPlayingMoviesView: UIViewController {
     
     var presenter: NowPlayingMoviesPresenterProtocol!
-    
-    private var object : NowPlayingMoviesEntity?
-    
-    @IBOutlet weak var moviesCollection: UICollectionView!
-    
-    var movies: [Movie]?
+    //private var object : NowPlayingMoviesEntity?
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        presenter.viewDidLoad()
+        navigationController!.navigationBar.prefersLargeTitles = false
+        navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
+        presenter.viewDidLoad(view: self)
     }
     
 }
 
 // MARK: - extending NowPlayingMoviesView to implement it's protocol
 extension NowPlayingMoviesView: NowPlayingMoviesViewProtocol {
-    func set(movies: [Movie]) {
-        self.movies = movies
-        moviesCollection.dataSource = self
-    }
-}
 
-extension NowPlayingMoviesView: UICollectionViewDataSource {
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return movies?.count ?? 0
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        
-        if let cell = moviesCollection.dequeueReusableCell(withReuseIdentifier: "moviesViewCell", for: indexPath) as? MoviesCollectionViewCell {
-            cell.movieCover.image = UIImage(data: movies![indexPath.row].coverData!)
-            cell.movieCover.layer.cornerRadius = 10
-            cell.movieRating.text = movies![indexPath.row].ratings?.description
-            cell.movieTitle.text = movies![indexPath.row].title
-            return cell
-        }
-        
-        return UICollectionViewCell()
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
-        
-        if let sectionHeader = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "nowPlayingHeader", for: indexPath) as? NowPlayingCollectionReusableView{
-            sectionHeader.sectionHeaderLabel.text = "Showing \(movies?.count ?? 0) results"
-            return sectionHeader
-        }
-        return UICollectionReusableView()
-    }
-    
 }
 
 

@@ -28,6 +28,26 @@ class WebService {
     typealias NowPlayingMoviesCompletionBlock = (_ nowPlayingMovies: NowPlayingMovies?, _ error: Error?) -> Void
     typealias PopularMoviesCompletionBlock = (_ popularMovies: PopularMovies?, _ error: Error?) -> Void
     typealias MoviesDetailsCompletionBlock = (_ moviesDetails: MovieDetails?, _ error: Error?) -> Void
+    typealias SearchMoviesCompletionBlock = (_ nowPlayingMovies: NowPlayingMovies?, _ error: Error?) -> Void
+    
+    
+    func search(text: String, completion: @escaping SearchMoviesCompletionBlock) {
+        getDataFromURL(urlString: "https://api.themoviedb.org/3/search/movie?api_key=\(apiKey)&language=en-US&query=\(text)&page=1&include_adult=false") { data, error in
+            if let error = error {
+                completion(nil, error)
+            } else if let data = data {
+                do {
+                    let nowPlayingMovies = try JSONDecoder().decode(NowPlayingMovies.self, from: data)
+                    completion(nowPlayingMovies,nil)
+                }
+                catch {
+                    completion(nil, error)
+                }
+            } else {
+                completion(nil, nil)
+            }
+        }
+    }
     
     func getCoverFrom(posterPath: String?) -> Data? {
         if posterPath == nil {

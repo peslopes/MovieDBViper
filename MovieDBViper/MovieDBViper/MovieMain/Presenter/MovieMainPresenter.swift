@@ -72,4 +72,8 @@ class MovieMainPresenter: MovieMainPresenterProtocol {
         return popularRequestError && nowPlayingRequestError
     }
     
+    func searchMovies(_ text: String, view: UIViewController) {
+        wireframe.showContainer(with: text, from: view)
+    }
+    
 }

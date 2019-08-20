@@ -10,6 +10,12 @@ import UIKit
 
 /// MovieMain Module Router (aka: Wireframe)
 class MovieMainRouter: MovieMainRouterProtocol {
+    func showContainer(with text: String, from view: UIViewController) {
+        let showMoviesViewController = view.children.first as! ShowMoviesView
+        ShowMoviesRouter.createShowMoviesModule(with: showMoviesViewController, and: text)
+        
+    }
+    
     func pushToMovieDetails(with movie: Movie, from view: UIViewController) {
         let movieDetailsViewController = view.storyboard?.instantiateViewController(withIdentifier: "MovieDatails") as! MovieDetailsView
         MovieDetailsRouter.createMovieDetailsModule(with: movieDetailsViewController, and: movie)

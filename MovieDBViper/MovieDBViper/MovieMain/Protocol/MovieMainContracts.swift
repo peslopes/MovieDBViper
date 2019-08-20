@@ -50,6 +50,8 @@ protocol MovieMainPresenterProtocol {
     func showMovieDetails(with movie: Movie, from view: UIViewController)
     
     func showAll(nowPlayingMovies: [Movie], from view: UIViewController)
+    
+    func searchMovies(_ text: String, view: UIViewController)
 }
 
 //MARK: Router (aka: Wireframe) -
@@ -60,4 +62,6 @@ protocol MovieMainRouterProtocol {
     func pushToMovieDetails(with movie: Movie, from view: UIViewController)
     
     func pushToAllNowPlayingMovies(with movies: [Movie], from view: UIViewController)
+    
+    func showContainer(with text: String, from view: UIViewController)
 }
