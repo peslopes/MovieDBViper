@@ -25,6 +25,7 @@ class MovieDetailsView: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationController?.title = "Movie Details"
+        navigationItem.largeTitleDisplayMode = .never
         presenter?.viewDidLoad()
     }
     

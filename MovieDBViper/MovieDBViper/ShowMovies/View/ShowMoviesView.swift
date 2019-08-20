@@ -12,6 +12,7 @@ import UIKit
 class ShowMoviesView: UIViewController {
     
     @IBOutlet weak var collectionView: UICollectionView!
+    @IBOutlet weak var spinner: UIActivityIndicatorView!
     
     private var presenter: ShowMoviesPresenterProtocol!
     
@@ -30,6 +31,7 @@ class ShowMoviesView: UIViewController {
     
     func initMoviesViewSearch(presenter: ShowMoviesPresenter) {
         self.presenter = presenter
+        collectionView.isHidden = true
         presenter.viewDidInitSearch()
     }
     
@@ -40,6 +42,7 @@ extension ShowMoviesView: ShowMoviesViewProtocol {
     func set(movies: [Movie]) {
         self.movies = movies
         DispatchQueue.main.async {
+            self.collectionView.isHidden = false
             self.collectionView.reloadData()
         }
     }

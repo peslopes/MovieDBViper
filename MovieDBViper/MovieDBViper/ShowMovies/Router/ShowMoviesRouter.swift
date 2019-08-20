@@ -13,6 +13,7 @@ class ShowMoviesRouter: ShowMoviesRouterProtocol {
     func pushToMovieDetails(with movie: Movie, from view: UIViewController) {
         let movieDetailsViewController = view.storyboard?.instantiateViewController(withIdentifier: "MovieDatails") as! MovieDetailsView
         MovieDetailsRouter.createMovieDetailsModule(with: movieDetailsViewController, and: movie)
+        view.parent?.navigationItem.searchController?.isActive = false
         view.navigationController?.pushViewController(movieDetailsViewController, animated: true)
     }
     

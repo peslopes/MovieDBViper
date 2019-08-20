@@ -16,7 +16,7 @@ class NowPlayingMoviesView: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        navigationController!.navigationBar.prefersLargeTitles = false
+        navigationItem.largeTitleDisplayMode = .never
         navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
         presenter.viewDidLoad(view: self)
     }

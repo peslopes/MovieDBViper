@@ -34,10 +34,12 @@ class MovieMainView: UIViewController {
     }
     
     func setupNavBar() {
+        navigationItem.largeTitleDisplayMode = .always
         navigationController!.navigationBar.prefersLargeTitles = true
         let searchController = UISearchController(searchResultsController: nil)
         navigationItem.searchController = searchController
         navigationItem.hidesSearchBarWhenScrolling = false
+        searchController.obscuresBackgroundDuringPresentation = false
         UIBarButtonItem.appearance(whenContainedInInstancesOf: [UISearchBar.self]).tintColor = .black
         navigationItem.title = "MovieDB"
         navigationItem.searchController?.searchBar.delegate = self
@@ -175,7 +177,7 @@ extension MovieMainView: UISearchBarDelegate {
     func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
         tableView.isHidden = true
     }
-    
+
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         if searchBar.text?.count ?? 0 >= 3 {
             moviesCollectionContainer.isHidden = false

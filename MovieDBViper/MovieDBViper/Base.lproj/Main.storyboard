@@ -28,13 +28,6 @@
                                             <constraint firstAttribute="height" constant="35" id="px9-Hs-bUv"/>
                                         </constraints>
                                     </activityIndicatorView>
-                                    <containerView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Sg6-V0-r19">
-                                        <rect key="frame" x="0.0" y="0.0" width="414" height="774"/>
-                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
-                                        <connections>
-                                            <segue destination="NZA-zD-PmG" kind="embed" id="3HE-Jo-ow6"/>
-                                        </connections>
-                                    </containerView>
                                     <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Cqa-l7-l3O">
                                         <rect key="frame" x="0.0" y="0.0" width="414" height="774"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -308,13 +301,23 @@
                                     <constraint firstItem="Szf-0i-HNe" firstAttribute="centerY" secondItem="7X7-QZ-h7n" secondAttribute="centerY" id="iVo-yY-9Ay"/>
                                 </constraints>
                             </view>
+                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Sg6-V0-r19">
+                                <rect key="frame" x="0.0" y="88" width="414" height="774"/>
+                                <connections>
+                                    <segue destination="NZA-zD-PmG" kind="embed" id="3HE-Jo-ow6"/>
+                                </connections>
+                            </containerView>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
+                            <constraint firstItem="Sg6-V0-r19" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="9yi-L7-uux"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="Sg6-V0-r19" secondAttribute="bottom" id="I8h-PA-Rh9"/>
                             <constraint firstItem="7X7-QZ-h7n" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="Vyk-lH-AoM"/>
                             <constraint firstItem="7X7-QZ-h7n" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" id="hop-Cd-o5Q"/>
                             <constraint firstItem="7X7-QZ-h7n" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="lbx-ep-WNO"/>
+                            <constraint firstItem="Sg6-V0-r19" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="p1X-sE-5bQ"/>
                             <constraint firstItem="7X7-QZ-h7n" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="rzq-H5-Z56"/>
+                            <constraint firstItem="Sg6-V0-r19" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="topMargin" id="yHa-MK-Ne3"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
@@ -500,6 +503,9 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="818"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="Jzn-yk-SBC">
+                                <rect key="frame" x="197" y="399" width="20" height="20"/>
+                            </activityIndicatorView>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="AzD-Te-oaf">
                                 <rect key="frame" x="23" y="0.0" width="368" height="818"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -613,14 +619,17 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
+                            <constraint firstItem="Jzn-yk-SBC" firstAttribute="centerY" secondItem="XG6-Tx-cn5" secondAttribute="centerY" id="BCc-yU-ILh"/>
                             <constraint firstItem="AzD-Te-oaf" firstAttribute="leading" secondItem="XG6-Tx-cn5" secondAttribute="leading" constant="23" id="DPh-9Q-tRa"/>
                             <constraint firstAttribute="bottom" secondItem="AzD-Te-oaf" secondAttribute="bottom" id="ILB-99-3FK"/>
                             <constraint firstAttribute="trailing" secondItem="AzD-Te-oaf" secondAttribute="trailing" constant="23" id="T6e-1M-vaX"/>
+                            <constraint firstItem="Jzn-yk-SBC" firstAttribute="centerX" secondItem="XG6-Tx-cn5" secondAttribute="centerX" id="WFL-0E-ttl"/>
                             <constraint firstItem="AzD-Te-oaf" firstAttribute="top" secondItem="XG6-Tx-cn5" secondAttribute="top" id="kgG-ST-F0b"/>
                         </constraints>
                     </view>
                     <connections>
                         <outlet property="collectionView" destination="AzD-Te-oaf" id="CVb-hi-o0e"/>
+                        <outlet property="spinner" destination="Jzn-yk-SBC" id="e85-fR-fyS"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Czy-O2-Aa3" userLabel="First Responder" sceneMemberID="firstResponder"/>
