@@ -32,7 +32,8 @@ class WebService {
     
     
     func search(text: String, completion: @escaping SearchMoviesCompletionBlock) {
-        getDataFromURL(urlString: "https://api.themoviedb.org/3/search/movie?api_key=\(apiKey)&language=en-US&query=\(text)&page=1&include_adult=false") { data, error in
+        let stringToSearch = text.replacingOccurrences(of: " ", with: "%20", options: .literal, range: nil)
+        getDataFromURL(urlString: "https://api.themoviedb.org/3/search/movie?api_key=\(apiKey)&language=en-US&query=\(stringToSearch)&page=1&include_adult=false") { data, error in
             if let error = error {
                 completion(nil, error)
             } else if let data = data {
