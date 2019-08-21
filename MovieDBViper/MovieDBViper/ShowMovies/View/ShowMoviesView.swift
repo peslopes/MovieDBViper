@@ -13,6 +13,7 @@ class ShowMoviesView: UIViewController {
     
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var spinner: UIActivityIndicatorView!
+    @IBOutlet weak var noResultsView: UIView!
     
     private var presenter: ShowMoviesPresenterProtocol!
     
@@ -22,6 +23,7 @@ class ShowMoviesView: UIViewController {
         super.viewDidLoad()
         collectionView.dataSource = self
         collectionView.delegate = self
+        noResultsView.isHidden = true
     }
     
     func initMoviesViewAllMovies(presenter: ShowMoviesPresenter) {
@@ -42,7 +44,14 @@ extension ShowMoviesView: ShowMoviesViewProtocol {
     func set(movies: [Movie]) {
         self.movies = movies
         DispatchQueue.main.async {
-            self.collectionView.isHidden = false
+            if movies.count > 0 {
+                self.noResultsView.isHidden = true
+                self.collectionView.isHidden = false
+            }
+            else {
+                self.noResultsView.isHidden = false
+                self.collectionView.isHidden = true
+            }
             self.collectionView.reloadData()
         }
     }

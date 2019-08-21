@@ -13,7 +13,9 @@ class MovieMainView: UIViewController {
     
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var moviesCollectionContainer: UIView!
-    
+    @IBOutlet weak var errorView: UIView!
+    @IBOutlet weak var errorImage: UIImageView!
+    @IBOutlet weak var errorMessage: UILabel!
     
     private var presenter: MovieMainPresenterProtocol!
     private var popularMovies: [Movie]?
@@ -26,6 +28,7 @@ class MovieMainView: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.isHidden = true
+        errorView.isHidden = true
         self.tableView.dataSource = self
         self.tableView.delegate = self
         setupNavBar()
@@ -50,10 +53,31 @@ class MovieMainView: UIViewController {
     @IBAction func seeAllTouched(_ sender: UIButton) {
        presenter.showAll(nowPlayingMovies: nowPlayingMovies!, from: self)
     }
+    
+    @IBAction func tryAgainAction(_ sender: Any) {
+        errorView.isHidden = true
+        presenter.viewDidLoad()
+    }
+    
 }
 
 // MARK: - extending MovieMainView to implement it's protocol
 extension MovieMainView: MovieMainViewProtocol {
+    func notConnected() {
+        tableView.isHidden = true
+        moviesCollectionContainer.isHidden = true
+        errorView.isHidden = false
+        errorImage.image = UIImage(named: "wifiIcon")
+        errorMessage.text = "Looks like you are offline. Please check your internet connection."
+    }
+    
+    func error() {
+        tableView.isHidden = true
+        moviesCollectionContainer.isHidden = true
+        errorView.isHidden = false
+        errorImage.image = UIImage(named: "errorImage")
+        errorMessage.text = "Looks like an error occurred. Please try again later."
+    }
     
     func set(numberOfSections: Int) {
         self.numberOfSections = numberOfSections
@@ -169,7 +193,9 @@ extension MovieMainView: UICollectionViewDelegate, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        presenter?.showMovieDetails(with: popularMovies![indexPath.row], from: self)
+        if indexPath.section == popularMoviesSection {
+            presenter?.showMovieDetails(with: popularMovies![indexPath.row], from: self)
+        }
     }
 }
 

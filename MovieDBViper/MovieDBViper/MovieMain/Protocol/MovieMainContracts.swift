@@ -25,6 +25,10 @@ protocol MovieMainViewProtocol: BaseViewProtocol {
     func set(numberOfSections: Int)
     
     func loadData()
+    
+    func notConnected()
+    
+    func error()
 }
 
 //MARK: Interactor -
@@ -34,6 +38,8 @@ protocol MovieMainInteractorProtocol {
     func getPopularMovies(presenter: MovieMainPresenterProtocol)
     
     func getNowPlayingMovies(presenter: MovieMainPresenterProtocol)
+    
+    func isConnectedToNetwork() -> Bool
 }
 
 //MARK: Presenter -

@@ -11,9 +11,11 @@ import Foundation
 /// MovieMain Module Interactor
 class MovieMainInteractor: MovieMainInteractorProtocol {
     
-//    var presenter: MovieMainPresenterProtocol?
-    
     typealias CoverCompletionBlock = ( _ data: Data?, _ error: Error?) -> Void
+    
+    func isConnectedToNetwork() -> Bool {
+        return WebService.sharedService.isConnectedToNetwork()
+    }
     
     func getPopularMovies(presenter: MovieMainPresenterProtocol) {
         WebService.sharedService.getPopularMovies { popularMovies, error in

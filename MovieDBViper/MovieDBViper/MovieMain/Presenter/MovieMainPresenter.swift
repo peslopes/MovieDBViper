@@ -16,7 +16,8 @@ class MovieMainPresenter: MovieMainPresenterProtocol {
     private var wireframe: MovieMainRouterProtocol
     private var nowPlayingRequestError = false
     private var popularRequestError = false
-    private var nowPlayingRequestReady = false
+    private var firstRequestReady = false
+    
     
     init(view: MovieMainViewProtocol) {
         self._view = view
@@ -33,7 +34,12 @@ class MovieMainPresenter: MovieMainPresenterProtocol {
     }
 
     func viewDidLoad() {
-        self.loadMovieLists()
+        if interactor.isConnectedToNetwork() {
+            self.loadMovieLists()
+        }
+        else {
+            _view?.notConnected()
+        }
     }
     
     func loadMovieLists() {
@@ -46,26 +52,40 @@ class MovieMainPresenter: MovieMainPresenterProtocol {
             popularRequestError = true
         }
         else {
-            if !nowPlayingRequestReady {
-                _view?.set(numberOfSections: 2)
-            }
             let movies = popularMovies!.sorted(by: {$0.ratings! > $1.ratings! })
             _view?.set(popularMovies: movies)
-            _view?.loadData()
         }
+        fetchRequest()
     }
     
     func nowPlayingMoviesDidFetch(nowPlayingMovies: [Movie]?, error: Error?) {
         if error != nil || nowPlayingMovies?.isEmpty ?? true{
             nowPlayingRequestError = true
-            _view?.set(numberOfSections: 2)
         }
         else {
-            _view?.set(numberOfSections: 3)
             _view?.set(nowPlayingMovies: nowPlayingMovies!)
-            _view?.loadData()
         }
-        nowPlayingRequestReady = true
+        fetchRequest()
+    }
+    
+    func fetchRequest() {
+        if !firstRequestReady {
+            firstRequestReady = true
+        }
+        else {
+            if nowPlayingRequestError && popularRequestError {
+                _view?.error()
+            }
+            else {
+                if nowPlayingRequestError {
+                   _view?.set(numberOfSections: 2)
+                }
+                else {
+                    _view?.set(numberOfSections: 3)
+                }
+                _view?.loadData()
+            }
+        }
     }
     
     func totalError() -> Bool {
