@@ -64,12 +64,14 @@ extension ShowMoviesView: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
-        if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "moviesViewCell", for: indexPath) as? MoviesCollectionViewCell {
-            cell.movieCover.image = UIImage(data: movies![indexPath.row].coverData!)
-            cell.movieCover.layer.cornerRadius = 10
-            cell.movieRating.text = movies![indexPath.row].ratings?.description
-            cell.movieTitle.text = movies![indexPath.row].title
-            return cell
+        if movies?.count ?? 0 > indexPath.row {
+            if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "moviesViewCell", for: indexPath) as? MoviesCollectionViewCell {
+                cell.movieCover.image = UIImage(data: movies![indexPath.row].coverData!)
+                cell.movieCover.layer.cornerRadius = 10
+                cell.movieRating.text = movies![indexPath.row].ratings?.description
+                cell.movieTitle.text = movies![indexPath.row].title
+                return cell
+            }
         }
         
         return UICollectionViewCell()

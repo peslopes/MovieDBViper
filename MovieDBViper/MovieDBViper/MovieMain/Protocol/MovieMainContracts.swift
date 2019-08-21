@@ -22,6 +22,8 @@ protocol MovieMainViewProtocol: BaseViewProtocol {
     
     func set(nowPlayingMovies: [Movie])
     
+    func getNowPlayingMovies() -> [Movie]?
+    
     func set(numberOfSections: Int)
     
     func loadData()

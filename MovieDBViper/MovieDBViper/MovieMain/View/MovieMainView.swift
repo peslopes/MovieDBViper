@@ -99,6 +99,10 @@ extension MovieMainView: MovieMainViewProtocol {
         }
     }
     
+    func getNowPlayingMovies() -> [Movie]? {
+        return nowPlayingMovies
+    }
+    
     func set(nowPlayingMovies: [Movie]) {
         DispatchQueue.main.async {
             self.nowPlayingMovies = nowPlayingMovies

@@ -52,7 +52,23 @@ class MovieMainPresenter: MovieMainPresenterProtocol {
             popularRequestError = true
         }
         else {
-            let movies = popularMovies!.sorted(by: {$0.ratings! > $1.ratings! })
+            let allNowPlayingMovies = _view?.getNowPlayingMovies()
+            var movies = popularMovies!.sorted(by: {$0.ratings! > $1.ratings! })
+            if allNowPlayingMovies != nil {
+                var nowPlayingMovies: [Movie] = []
+                for i in 0 ... (allNowPlayingMovies!.count > 5 ? 4 : allNowPlayingMovies!.count - 1){
+                    nowPlayingMovies.append(allNowPlayingMovies![i])
+                }
+                movies = movies.filter() {
+                    var haveEqual = false
+                    for i in 0 ... nowPlayingMovies.count - 1{
+                        if $0.id == nowPlayingMovies[i].id {
+                            haveEqual = true
+                        }
+                    }
+                    return !haveEqual
+                }
+            }
             _view?.set(popularMovies: movies)
         }
         fetchRequest()
